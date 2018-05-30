@@ -44,9 +44,9 @@ import numpy as np
 from six.moves import urllib
 import tensorflow as tf
 
-def classifyImage(_image):
+def classifyImage(image):
     # _image is a path to image file provided from other script
-    img = _image
+    _image = image
 
     FLAGS = None
 
@@ -137,7 +137,7 @@ def classifyImage(_image):
         image: Image file name.
 
       Returns:
-        ATM the first match of the query
+        Five predictions
       """
       
       if not tf.gfile.Exists(image):
@@ -163,16 +163,16 @@ def classifyImage(_image):
         node_lookup = NodeLookup()
 
         top_k = predictions.argsort()[-FLAGS.num_top_predictions:][::-1]
-
-        # Pick the first match in wantedInfo
-        wantedInfo = node_lookup.id_to_string(top_k[0])
+        imageTags = []
 
         for node_id in top_k:
           human_string = node_lookup.id_to_string(node_id)
-          score = predictions[node_id]
-          print('%s (score = %.5f)' % (human_string, score))
+          #score = predictions[node_id]
+          imageTags.append(human_string)
+          #print('%s (score = %.5f)' % (human_string, score))
           
-        return wantedInfo
+        # Returns five predictions in a easily readable form
+        return '\n'.join(imageTags)
 
 
     def maybe_download_and_extract():
@@ -193,12 +193,12 @@ def classifyImage(_image):
         print('Successfully downloaded', filename, statinfo.st_size, 'bytes.')
       tarfile.open(filepath, 'r:gz').extractall(dest_directory)
 
-    #def main(_):
-    def main(img):
+    def main():
       maybe_download_and_extract()
-    #  image = (FLAGS.image_file if FLAGS.image_file else
-    #           os.path.join(FLAGS.model_dir, 'cropped_panda.jpg'))
-      return run_inference_on_image(_image)
+      result = run_inference_on_image(_image)
+      # Returns five predictions in a easily readable form
+      return result
+      
 
     if __name__ == 'classify_image':
       parser = argparse.ArgumentParser()
@@ -231,4 +231,6 @@ def classifyImage(_image):
           help='Display this many predictions.'
       )
       FLAGS, unparsed = parser.parse_known_args()
-      tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
+      
+    return main()
+    
