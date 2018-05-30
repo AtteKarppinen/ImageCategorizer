@@ -1,10 +1,10 @@
 #http://appjar.info/ tuolta löytyy appjar dokumentaatiota
 import threading
 import sys
-# vaihda sys.path.append omaan local pathiin 
-sys.path.append("C:\KOULU\ToinenVuosi\SummerProject\models\tutorials\image\imagenet")
-import classify_image
 import os
+# Find path for Scripts folder
+sys.path.append(os.path.abspath('Scripts'))
+import classify_image
 import tkinter as tk
 from subprocess import call
 from appJar import gui

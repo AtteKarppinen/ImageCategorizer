@@ -1,4 +1,8 @@
 import shutil
+import sys
+sys.path.append(os.path.abspath('Scripts'))
+import classify_image
+
 
 def SelectFilters():
     #store selected filters as strings for later use (selectedTags)
