@@ -44,7 +44,7 @@ import numpy as np
 from six.moves import urllib
 import tensorflow as tf
 
-def classifyImage(image):
+def ClassifyImage(image):
     # _image is a path to image file provided from other script
     _image = image
 
