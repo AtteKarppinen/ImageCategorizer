@@ -2,31 +2,35 @@ import shutil
 import sys
 sys.path.append(os.path.abspath('Scripts'))
 import classify_image
+import os
 
 
-def SelectFilters():
+def SelectFilters(sourceFolder, targetFolder, filters):
     #store selected filters as strings for later use (selectedTags)
+    _filters = filters
+    _sourceFolder = sourceFolder
+    _targetFolder = targetFolder
     
-    for file in FOLDERPATH:
+    for _file in _sourceFolder:
     #loops through the file(s) in a given folderpath, 
     
-        if IMAGEPATH.lower().endswith(('.png', '.jpg', '.jpeg')):
-        #sends FILEPATH to  classify function and receives tagString containing 5 highest tags and their variables
-            _tagString = str(classify_image.ClassifyImage(FOLDERPATH))
-            return _tagString
+        if _file.lower().endswith(('.png', '.jpg', '.jpeg')):
+            #sends FILEPATH to  classify function and receives tagString containing 5 highest tags and their variables
+            _filePath = _sourceFolder + '\\' + _file
+            _tagString = str(classify_image.ClassifyImage(_filePath))
         
-                if selectedTags in _tagString:
-                #change the filepath/folder to corresponding tagfolder, also checks if one exists or not and creates one if
-                #neccesary.
+            if _filter in _tagString:
+            #change the filepath/folder to corresponding tagfolder, also checks if one exists or not and creates one if
+            #neccesary.
                    
-                    newpath = r'C:\Program Files\arbitrary'#!!!!swap the directory for this code!!! 
-                        if not os.path.exists(newpath): #if the dir doesnt exist
-                            os.makedirs(newpath)#this creates it
+                #newpath = r'C:\Program Files\arbitrary'#!!!!swap the directory for this code!!! 
+                if not os.path.exists(_targetFolder): #if the dir doesn't exist
+                    os.makedirs(_targetFolder)#this creates it
                         
-                            shutil.move(src, dst, copy_function=copy2)
-                            #Recursively move a file or directory (src) to another location (dst) and return the destination.
+                shutil.move(src, dst, copy_function=copy2)
+                #Recursively move a file or directory (src) to another location (dst) and return the destination.
                     
-                else:
-                    pass #if no tags found in tagString, do nothing.
+            else:
+                pass #if no tags found in tagString, do nothing.
         else:
             pass #do nothing if the file isnt an image file
