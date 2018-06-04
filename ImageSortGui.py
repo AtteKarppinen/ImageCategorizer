@@ -7,6 +7,7 @@ import os
 sys.path.append(os.path.abspath('Scripts'))
 
 import classify_image
+import SelectFilters
 from subprocess import call
 from appJar import gui
 
@@ -21,7 +22,18 @@ filters={"Dog":False, "Cat":False, "Bacon":False,
 
 
 def pressGo(btn):
-    print(app.getEntry("d1"))
+    # Next loop only enables one filter
+    _oneFilter = ''
+    _filters = app.getProperties("Choose Filters")
+    for k, v in _filters.items():
+        if v is True:
+            _oneFilter = k
+            _oneFilter = _oneFilter.lower()
+
+    _source = app.getEntry("d1")
+    _dest = app.getEntry("d2")
+    if _source is not None and _dest is not None and _oneFilter is not None:
+        SelectFilters.SelectFilters(_source, _dest, _oneFilter)
 
 
 app = gui()
@@ -33,7 +45,6 @@ app.addLabel("l2", "Choose folder for filtered images")
 app.addDirectoryEntry("d2")
 app.addProperties("Choose Filters", filters )
 app.addButton("Go", pressGo)
-app.addEntry("e1")
 
 
 app.setSize(400, 600)
