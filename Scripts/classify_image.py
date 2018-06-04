@@ -47,18 +47,19 @@ import tensorflow as tf
 def ClassifyImage(image):
     # _image is a path to image file provided from other script
     _image = image
-    _buildings = ['altar', 'bakery, bakeshop, bakehouse', 'barber chair', 'barbershop', 'barn',
-                  'beacon, lighthouse, beacon light, pharos', 'bell cote, bell cot', 'boathouse',
-                  'bookcase', 'bookshop, bookstore, bookstall', 'butcher shop, meat market', 'castle',
-                  'church, church building', 'cinema, movie theater, movie theatre, movie house, picture palace',
-                  'confectionery, confectionary, candy store', 'dock, dockage, docking facility',
-                  'dome', 'entertainment center', 'greenhouse, nursery, glasshouse',
-                  'grocery store, grocery, food market, market', 'home theater, home theatre',
-                  'lumbermill, sawmill', 'monastery', 'mosque', 'palace', 'patio, terrace',
-                  'prison, prison house', 'restaurant, eating house, eating place, eatery',
-                  'shoe shop, shoe-shop, shoe store', 'shoji', 'sliding door', 'stupa, tope',
-                  'thatch, thatched roof', 'tile roof', 'tobacco shop, tobacconist shop, tobacconist',
-                  'toyshop', 'triumphal arch', 'water tower', 'yurt']
+    
+    _buildings = '''altar, bakery, bakeshop, bakehouse, barber chair, barbershop, barn,
+                  beacon, lighthouse, beacon light, pharos, bell cote, bell cot, boathouse,
+                  bookcase, bookshop, bookstore, bookstall, butcher shop, meat market, castle,
+                  church, church building, cinema, movie theater, movie theatre, movie house, picture palace,
+                  confectionery, confectionary, candy store, dock, dockage, docking facility,
+                  dome, entertainment center, greenhouse, nursery, glasshouse,
+                  grocery store, grocery, food market, market, home theater, home theatre,
+                  lumbermill, sawmill, monastery, mosque, palace, patio, terrace,
+                  prison, prison house, restaurant, eating house, eating place, eatery,
+                  shoe shop, shoe-shop, shoe store, shoji, sliding door, stupa, tope,
+                  thatch, thatched roof, tile roof, tobacco shop, tobacconist shop, tobacconist,
+                  toyshop, triumphal arch, water tower, yurt'''
 
     FLAGS = None
 
