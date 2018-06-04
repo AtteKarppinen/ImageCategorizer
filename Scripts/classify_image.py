@@ -35,7 +35,7 @@ from __future__ import division
 from __future__ import print_function
 
 import argparse
-import os.path
+import os
 import re
 import sys
 import tarfile
@@ -47,6 +47,18 @@ import tensorflow as tf
 def ClassifyImage(image):
     # _image is a path to image file provided from other script
     _image = image
+    _buildings = ['altar', 'bakery, bakeshop, bakehouse', 'barber chair', 'barbershop', 'barn',
+                  'beacon, lighthouse, beacon light, pharos', 'bell cote, bell cot', 'boathouse',
+                  'bookcase', 'bookshop, bookstore, bookstall', 'butcher shop, meat market', 'castle',
+                  'church, church building', 'cinema, movie theater, movie theatre, movie house, picture palace',
+                  'confectionery, confectionary, candy store', 'dock, dockage, docking facility',
+                  'dome', 'entertainment center', 'greenhouse, nursery, glasshouse',
+                  'grocery store, grocery, food market, market', 'home theater, home theatre',
+                  'lumbermill, sawmill', 'monastery', 'mosque', 'palace', 'patio, terrace',
+                  'prison, prison house', 'restaurant, eating house, eating place, eatery',
+                  'shoe shop, shoe-shop, shoe store', 'shoji', 'sliding door', 'stupa, tope',
+                  'thatch, thatched roof', 'tile roof', 'tobacco shop, tobacconist shop, tobacconist',
+                  'toyshop', 'triumphal arch', 'water tower', 'yurt']
 
     FLAGS = None
 
@@ -109,7 +121,10 @@ def ClassifyImage(image):
         for key, val in node_id_to_uid.items():
           if val not in uid_to_human:
             tf.logging.fatal('Failed to locate: %s', val)
+          
           name = uid_to_human[val]
+          if name in _buildings:
+              name = 'building'
           node_id_to_name[key] = name
 
         return node_id_to_name
@@ -212,6 +227,7 @@ def ClassifyImage(image):
           '--model_dir',
           type=str,
           default='/tmp/imagenet',
+          #default=os.path.split(os.getcwd())[0] + '/imagenet/test',
           help="""\
           Path to classify_image_graph_def.pb,
           imagenet_synset_to_human_label_map.txt, and
