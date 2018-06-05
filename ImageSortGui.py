@@ -6,10 +6,13 @@ import os
 # Find path for Scripts folder
 sys.path.append(os.path.abspath('Scripts'))
 
+import SelectFilters
 import classify_image
+import movetest
 import SelectFilters
 from subprocess import call
 from appJar import gui
+
 
 
 
@@ -21,7 +24,12 @@ filters={"Dog":False, "Cat":False, "Bacon":False,
 #This define should print the image directory --so that it could be called in the loop.
 
 
+#This define prints the image directory --so that it could be called in the imagesortingloop.
 def pressGo(btn):
+    print(app.getEntry("d1"))
+    
+    
+    
     # Next loop only enables one filter
     _oneFilter = ''
     _filters = app.getProperties("Choose Filters")
@@ -45,6 +53,7 @@ app.addLabel("l2", "Choose folder for filtered images")
 app.addDirectoryEntry("d2")
 app.addProperties("Choose Filters", filters )
 app.addButton("Go", pressGo)
+app.addbutton("move", moveBtn)
 
 
 app.setSize(400, 600)
