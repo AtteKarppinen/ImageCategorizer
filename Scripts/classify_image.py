@@ -35,7 +35,7 @@ from __future__ import division
 from __future__ import print_function
 
 import argparse
-import os.path
+import os
 import re
 import sys
 import tarfile
@@ -48,6 +48,7 @@ def ClassifyImage(image):
     # _image is a path to image file provided from other script
     _image = image
     
+<<<<<<< HEAD
 _animals = '''tench, Tinca tinca, goldfish, Carassius auratus, great white shark, white shark, man-eater, man-eating shark, Carcharodon, carcharias, 
               hammerhead, hammerhead shark, electric ray, crampfish, numbfish, torpedo, stingray, cock, hen, ostrich, Struthio camelus,
               brambling, Fringilla montifringilla, goldfinch, Carduelis carduelis, house finch, linnet, Carpodacus mexicanus,
@@ -110,6 +111,20 @@ _animals = '''tench, Tinca tinca, goldfish, Carassius auratus, great white shark
               Indian elephant, Elephas maximus, African elephant, Loxodonta africana, lesser panda, red panda, panda, bear cat, cat bear, Ailurus fulgens,
               giant panda, panda, panda bear, coon bear, Ailuropoda melanoleuca, barracouta, snoek, eel, coho, cohoe, coho salmon, blue jack, silver salmon, Oncorhynchus kisutch,
               rock beauty, Holocanthus tricolor, anemone fish, sturgeon, gar, garfish, garpike, billfish, Lepisosteus osseus, lionfish, puffer, pufferfish, blowfish, globefish'''
+=======
+    _buildings = '''altar, bakery, bakeshop, bakehouse, barber chair, barbershop, barn,
+                  beacon, lighthouse, beacon light, pharos, bell cote, bell cot, boathouse,
+                  bookcase, bookshop, bookstore, bookstall, butcher shop, meat market, castle,
+                  church, church building, cinema, movie theater, movie theatre, movie house, picture palace,
+                  confectionery, confectionary, candy store, dock, dockage, docking facility,
+                  dome, entertainment center, greenhouse, nursery, glasshouse,
+                  grocery store, grocery, food market, market, home theater, home theatre,
+                  lumbermill, sawmill, monastery, mosque, palace, patio, terrace,
+                  prison, prison house, restaurant, eating house, eating place, eatery,
+                  shoe shop, shoe-shop, shoe store, shoji, sliding door, stupa, tope,
+                  thatch, thatched roof, tile roof, tobacco shop, tobacconist shop, tobacconist,
+                  toyshop, triumphal arch, water tower, yurt'''
+>>>>>>> 22e8fecc187e397849b10e702ed04c646cc87891
 
     FLAGS = None
 
@@ -172,7 +187,10 @@ _animals = '''tench, Tinca tinca, goldfish, Carassius auratus, great white shark
         for key, val in node_id_to_uid.items():
           if val not in uid_to_human:
             tf.logging.fatal('Failed to locate: %s', val)
+          
           name = uid_to_human[val]
+          if name in _buildings:
+              name = 'building'
           node_id_to_name[key] = name
 
         return node_id_to_name
@@ -275,6 +293,7 @@ _animals = '''tench, Tinca tinca, goldfish, Carassius auratus, great white shark
           '--model_dir',
           type=str,
           default='/tmp/imagenet',
+          #default=os.path.split(os.getcwd())[0] + '/imagenet/test',
           help="""\
           Path to classify_image_graph_def.pb,
           imagenet_synset_to_human_label_map.txt, and
