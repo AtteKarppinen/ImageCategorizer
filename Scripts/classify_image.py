@@ -47,8 +47,6 @@ import tensorflow as tf
 def ClassifyImage(image):
     # _image is a path to image file provided from other script
     _image = image
-    
-    _buildings =  '''altar, bakery, bakeshop, bakehouse, barber chair, barbershop, barn,
 
     _animals = '''tench, Tinca tinca, goldfish, Carassius auratus, great white shark, white shark, man-eater, man-eating shark, Carcharodon, carcharias, 
                   hammerhead, hammerhead shark, electric ray, crampfish, numbfish, torpedo, stingray, cock, hen, ostrich, Struthio camelus,
