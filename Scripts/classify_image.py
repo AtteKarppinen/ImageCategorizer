@@ -48,7 +48,7 @@ def ClassifyImage(image):
     # _image is a path to image file provided from other script
     _image = image
     
-    _buildings = '''altar, bakery, bakeshop, bakehouse, barber chair, barbershop, barn,
+    _buildings =  '''altar, bakery, bakeshop, bakehouse, barber chair, barbershop, barn,
                   beacon, lighthouse, beacon light, pharos, bell cote, bell cot, boathouse,
                   bookcase, bookshop, bookstore, bookstall, butcher shop, meat market, castle,
                   church, church building, cinema, movie theater, movie theatre, movie house, picture palace,
@@ -60,6 +60,53 @@ def ClassifyImage(image):
                   shoe shop, shoe-shop, shoe store, shoji, sliding door, stupa, tope,
                   thatch, thatched roof, tile roof, tobacco shop, tobacconist shop, tobacconist,
                   toyshop, triumphal arch, water tower, yurt'''
+    
+    _dogs = '''chicuahua, Japanese spaniel, Maltese dog, Maltese terrier, Maltese, Peginese, Pegingese,
+            Peke, Shih-Tzu, Blenheim spaniel, papillon, toy terrier, Rhodesian redgeback, Afgan hound, Afgan,
+            basset, basset hound, beagle, bloodhound, sleuthhound, bluetick, black-and-tan coonhound,
+            Walker hound, Walker foxhound, English foxhound, redbone, borzoi, Russian wolfhound,
+            Italian greyhound, whippet, Ibizan hound, Ibizan Podenco, Norwegian elkhound, otterhound,
+            otter hound, Saluki, gazelle hound, Saluki, gazelle hound, Scottish deerhound, deerhoSaluki,
+            gazelle houndund, Weimaraner, Staffordshire bullterrier, Staffordshire bull terrier,
+            American Staffordshire terrier, Staffordshire terrier, American pit bull terrier, pit bull terrier,
+            Bedlington terrier, Border terrier, Kerry blue terrier, Irish terrier, Norfolk terrier, Norwich terrier,
+            Yorkshire terrier, wire-haired fox terrier,  wire-haired fox terrier, Lakeland terrier, Sealyham terrier,
+            Sealyham, Airedale, Airedale terrier, cairn, cairn terrier, Australian terrier, Dandie Dinmont,
+            Dandie Dinmont terrier, Boston bull, Boston terrier, miniature schnauzer, giant schnauzer,
+            standard schnauzer, Scotch terrier, Scottish terrier, Scottie, Tibetan terrier, chrysanthemum dog,
+            silky terrier, Sydney silky, soft-coated wheaten terrier, West Highland white terrier, Lhasa, Lhasa apso,
+            flat-coated retriever, curly-coated retriever, golden retriever, Labrador retriever, Chesapeake Bay retriever,
+            German short-haired pointer, vizsla, Hungarian pointer, English setter, Irish setter, red setter,
+            Gordon setter, Brittany spaniel, clumber, clumber spaniel, English springer, English springer spaniel,
+            Welsh springer spaniel, cocker spaniel, English cocker spaniel, cocker, Sussex spaniel,
+            Irish water spaniel, kuvasz, schipperke, groenendael, malinois, briard, kelpie, komondor,
+            Old English sheepdog, bobtail, Shetland sheepdog, Shetland sheep dog, Shetland, collie,Border collie,
+            Bouvier des Flandres, Bouviers des Flandres. Rottweiler, German shepherd, German shepherd dog,
+            German police dog, alsatian, Doberman, Doberman pinscher, miniature pinscher, Greater Swiss Mountain dog,
+            Bernese mountain dog, Appenzeller, EntleBucher, boxer, bull mastiff, Tibetan mastiff, French bulldog,
+            Great Dane, Saint Bernard, St Bernard, Eskimo dog, husky, malamute, malemute, Alaskan malamute,
+            Siberian husky, dalmatian, coach dog, carriage dog, affenpinscher, monkey pinscher, monkey dog,
+            basenji, pug, pug-dog, Leonberg, Newfoundland, Newfoundland dog, Great Pyrenees, Samoyed, Samoyede,
+            Pomeranian, chow, chow chow, keeshond, Brabancon griffon, Pembroke, Pembroke Welsh corgi,
+            Cardigan, Cardigan Welsh corgi, toy poodle, miniature poodle, standard poodle, Mexican hairless '''
+    
+    _cats = 'tabby, tabby cat, tiger cat, Persian cat, Siamese cat, Siamese, Egyptian cat'
+    
+    _pets = 'wood rabbit, cottontail, cottontail rabbit, hare, Angora, Angora rabbit, hamster, guinea pig, Cavia cobaya'
+    
+    _views = '''volcano, seashore, coast, sandbar, sand bar, valley, promontory, headland, head, foreland, lakeside, lakeshore,
+             geyser, coral reef, cliff, drop, drop-off, alp, breakwater, groin, groyne, mole, bulwark, seawall, jetty'''
+    
+    _food = '''beer bottle, beer glass, cocktail shaker, coffee mug, coffeepot ,Crock Pot ,dining table, board,
+            espresso maker, frying pan, frypan, skillet, measuring cup, milk can, mixing bowl, pop bottle, soda bottle,
+            refrigerator, icebox, soup bowl, teapot, toaster, waffle iron, water bottle, water jug, whiskey jug, wine bottle
+            wok, wooden spoon, corkscrew, bottle screw, Dutch oven, ocarina, sweet potato, pitcher, ewer, rotisserie, saltshaker,
+            salt shaker, spatula, stove, menu, plate, guacamole, consomme, hot pot, hotpot, trifle, ice cream, icecream,
+            ice lolly, lolly, lollipop, popsicle, French loaf, bagel, beigel, pretzel, cheeseburger, hotdog, hot dog, red hot,
+            mashed potato, head cabbage, broccoli, cauliflower, zucchini, courgette, spaghetti squash, acorn squash, butternut squash,
+            cucumber, cuke, artichoke, globe artichoke, bell pepper, mushroom, Granny Smith, strawberry, orange, lemon, fig,
+            pineapple, ananas, banana, jackfruit, jak, jack, custard apple, pomegranate, carbonara, chocolate sauce, chocolate syrup,
+            dough, meat loaf, meatloaf, pizza, pizza pie, potpie, burrito, red wine, espresso, cup, eggnog, corn, can opener, tin opener'''
 
     FLAGS = None
 
@@ -126,6 +173,18 @@ def ClassifyImage(image):
           name = uid_to_human[val]
           if name in _buildings:
               name = 'building'
+          elif name in _dogs:
+              name = 'dog'
+          elif name in _cats:
+              name = 'cat'
+          elif name in _pets:
+              name = 'pet'
+          elif name in _animals:
+              name = 'animal'
+          elif name in _views:
+              name = 'view'
+          elif name in _food:
+              name = 'food'
           node_id_to_name[key] = name
 
         return node_id_to_name
