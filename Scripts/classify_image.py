@@ -44,9 +44,10 @@ import numpy as np
 from six.moves import urllib
 import tensorflow as tf
 
-def ClassifyImage(image):
+def ClassifyImage(image, filters):
     # _image is a path to image file provided from other script
     _image = image
+    _filters = filters
 
     _animals = '''tench, Tinca tinca, goldfish, Carassius auratus, great white shark, white shark, man-eater, man-eating shark, Carcharodon, carcharias, 
                   hammerhead, hammerhead shark, electric ray, crampfish, numbfish, torpedo, stingray, cock, hen, ostrich, Struthio camelus,
@@ -115,9 +116,9 @@ def ClassifyImage(image):
                   beacon, lighthouse, beacon light, pharos, bell cote, bell cot, boathouse,
                   bookcase, bookshop, bookstore, bookstall, butcher shop, meat market, castle,
                   church, church building, cinema, movie theater, movie theatre, movie house, picture palace,
-                  confectionery, confectionary, candy store, dock, dockage, docking facility,
+                  candy store,
                   dome, entertainment center, greenhouse, nursery, glasshouse,
-                  grocery store, grocery, food market, market, home theater, home theatre,
+                  grocery store, food market, market, home theater, home theatre,
                   lumbermill, sawmill, monastery, mosque, palace, patio, terrace,
                   prison, prison house, restaurant, eating house, eating place, eatery,
                   shoe shop, shoe-shop, shoe store, shoji, sliding door, stupa, tope,
@@ -157,8 +158,8 @@ def ClassifyImage(image):
     
     _pets = 'wood rabbit, cottontail, cottontail rabbit, hare, Angora, Angora rabbit, hamster, guinea pig, Cavia cobaya'
     
-    _views = '''volcano, seashore, coast, sandbar, sand bar, valley, promontory, headland, head, foreland, lakeside, lakeshore,
-             geyser, coral reef, cliff, drop, drop-off, alp, breakwater, groin, groyne, mole, bulwark, seawall, jetty'''
+    _sceneries = '''volcano, seashore, coast, sandbar, sand bar, valley, promontory, headland, head, foreland, lakeside, lakeshore,
+                 geyser, coral reef, cliff, drop, drop-off, alp, breakwater, groin, groyne, mole, bulwark, seawall, jetty'''
     
     _food = '''beer bottle, beer glass, cocktail shaker, coffee mug, coffeepot ,Crock Pot ,dining table, board,
             espresso maker, frying pan, frypan, skillet, measuring cup, milk can, mixing bowl, pop bottle, soda bottle,
@@ -245,12 +246,15 @@ def ClassifyImage(image):
               name = 'pet'
           elif name in _animals:
               name = 'animal'
-          elif name in _views:
-              name = 'view'
+          elif name in _sceneries:
+              name = 'scenery'
           elif name in _food:
               name = 'food'
           node_id_to_name[key] = name
-
+          if _filters not in node_id_to_name[key]:
+              del node_id_to_name[key]
+          
+        print(node_id_to_name)
         return node_id_to_name
 
       def id_to_string(self, node_id):
@@ -306,11 +310,13 @@ def ClassifyImage(image):
 
         for node_id in top_k:
           human_string = node_lookup.id_to_string(node_id)
-          #score = predictions[node_id]
-          imageTags.append(human_string)
+          score = predictions[node_id]
+          if score > 0.15:
+              imageTags.append(human_string)
           #print('%s (score = %.5f)' % (human_string, score))
           
         # Returns five predictions in a easily readable form
+        print('IMAGE TAGS: ' + str(imageTags))
         return '\n'.join(imageTags)
 
 
@@ -335,8 +341,10 @@ def ClassifyImage(image):
     def main():
       maybe_download_and_extract()
       result = run_inference_on_image(_image)
-      # Returns five predictions in a easily readable form
-      return result
+      if _filters in result:
+          return True
+      else:
+          return False
       
 
     if __name__ == 'classify_image':
