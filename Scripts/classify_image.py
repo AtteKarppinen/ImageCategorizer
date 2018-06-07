@@ -311,9 +311,9 @@ def ClassifyImage(image, filters):
         for node_id in top_k:
           human_string = node_lookup.id_to_string(node_id)
           score = predictions[node_id]
+          # Accept only matches with over 15% accuracy
           if score > 0.15:
               imageTags.append(human_string)
-          #print('%s (score = %.5f)' % (human_string, score))
           
         # Returns five predictions in a easily readable form
         print('IMAGE TAGS: ' + str(imageTags))

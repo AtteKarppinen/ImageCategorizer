@@ -25,12 +25,10 @@ def pressGo(btn):
         if v is True:
             _oneFilter = k
             _oneFilter = _oneFilter.lower()
-            print(_oneFilter)
 
     _source = app.getEntry("d1")
     _dest = app.getEntry("d2")
     if _source is not None and _dest is not None and _oneFilter is not None:
-        #SelectFilters.SelectFilters(_source, _dest, _oneFilter)
         app.thread(SelectFilters.SelectFilters, _source, _dest, _oneFilter)
 
 
