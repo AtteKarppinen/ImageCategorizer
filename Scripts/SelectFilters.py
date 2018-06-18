@@ -25,8 +25,7 @@ def SelectFilters(sourceFolder, targetFolder, filters):
             print('...Done! Result: ' + str(_match))
             if _match is True:
                 print('Filter Match with: ' + _imagePath)
-            #change the filepath/folder to corresponding tagfolder, also checks if one exists or not and creates one if
-            #neccesary.
+                #change the filepath/folder to corresponding tagfolder, also checks if one exists or not and creates one if neccesary.
                 print('Check for Folders')
                 if not os.path.exists(_targetFolder): #if the dir doesn't exist
                     os.makedirs(_targetFolder)#this creates it
@@ -45,5 +44,6 @@ def SelectFilters(sourceFolder, targetFolder, filters):
                 pass #if no tags found in tagString, do nothing.
         else:
             pass #do nothing if the file isnt an image file
-# Test functionality       
+        
+# Test functionality using only this script with the next line SelectFilters(Source folder, Destination folder, Filter)
 #SelectFilters('C:\\Users\\admin\\Desktop\\test\\Source', 'C:\\Users\\admin\\Desktop\\test\\Dest', 'animal')

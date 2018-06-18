@@ -235,6 +235,7 @@ def ClassifyImage(image, filters):
           if val not in uid_to_human:
             tf.logging.fatal('Failed to locate: %s', val)
           
+          # Change specific names to match with filters
           name = uid_to_human[val]
           if name in _buildings:
               name = 'building'
@@ -251,10 +252,11 @@ def ClassifyImage(image, filters):
           elif name in _food:
               name = 'food'
           node_id_to_name[key] = name
+          
+          # Delete unnecessary matches to keep list size minimum
           if _filters not in node_id_to_name[key]:
               del node_id_to_name[key]
           
-        print(node_id_to_name)
         return node_id_to_name
 
       def id_to_string(self, node_id):
@@ -315,7 +317,7 @@ def ClassifyImage(image, filters):
           if score > 0.15:
               imageTags.append(human_string)
           
-        # Returns five predictions in a easily readable form
+        # Check that imagetags are what they should be
         print('IMAGE TAGS: ' + str(imageTags))
         return '\n'.join(imageTags)
 
@@ -380,5 +382,6 @@ def ClassifyImage(image, filters):
       )
       FLAGS, unparsed = parser.parse_known_args()
       
+    # Returns True if there is a match with filter. Otherwise False
     return main()
     
