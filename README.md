@@ -1,7 +1,7 @@
 # ImageCategorizer
 Summer project of Oulu University of Applied Sciences' student group. Goal is to make graphical user interface for dividing given images to different categories.
 
-In order to run this project one needs python (we used version 3.6 x64), Tensorflow-cpu version and AppJar installed.
+In order to run this project one needs python (we used version 3.6.3 x64), Tensorflow-cpu version and AppJar installed.
 # Python
 https://www.python.org/getit/
 # Tensorflow:
